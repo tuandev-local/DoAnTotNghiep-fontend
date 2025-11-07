@@ -1,0 +1,94 @@
+.sign-up-all {
+
+    height: 100vh;
+    background: #f093fb;
+    background: linear-gradient(to bottom right, rgba(240, 147, 251, 1), rgba(245, 87, 108, 1));
+
+    .box-contain {
+        // border: 1px solid rgb(105, 26, 231);
+        width: 600px;
+        height: 500px;
+        position: fixed;
+        top: 100px;
+        left: 450px;
+        background: #2f2e2e;
+        color: white;
+
+        .containers {
+            // border: 1px solid green;
+            margin-top: 40px;
+
+            .form-header {
+                text-align: center;
+
+            }
+
+            .input-form {
+                // border: 1px solid skyblue;
+                display: block;
+                margin-top: 15px;
+                height: 25px;
+                width: 450px;
+                padding: 5px 2px;
+                margin-left: 70px;
+
+                padding: 5px 2px;
+
+
+                .inputInfo {
+                    // border: 1px solid red;
+                    height: 24px;
+                    width: 300px;
+                    float: inline-end;
+                }
+
+                .icon-sign {
+                    // border: 1px solid brown;
+                    position: fixed;
+                    right: 570px;
+                    top: 280px;
+                    color: black;
+                }
+            }
+
+            .form-outline {
+                // border: 1px solid blue;
+                display: flex;
+                justify-content: space-around;
+                margin-top: 10px;
+
+                .alert {
+
+                    color: red;
+                    width: 200px;
+                    text-align: center;
+                }
+
+                .select-control {
+                    height: 30px;
+                    margin-top: 2px;
+                }
+            }
+
+            .registerbtn {
+                // border: 1px solid red;
+                height: 40px;
+
+                width: 90px;
+                border-radius: 5px;
+                background-color: #6d6df5;
+                color: white;
+                margin-left: 230px;
+                margin-top: 10px;
+                cursor: pointer;
+            }
+        }
+
+        .signin {
+            // border: 1px solid yellow;
+            text-align: center;
+        }
+    }
+
+
+}

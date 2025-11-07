@@ -1,0 +1,195 @@
+.login-page {
+
+    background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Numans', sans-serif;
+
+    .content {
+
+        height: 100vh;
+        align-content: center;
+
+        .card {
+
+            height: 400px;
+            margin-top: auto;
+            margin-bottom: auto;
+            width: 400px;
+            background-color: rgba(0, 0, 0, 0.5) !important;
+            margin: 0 auto;
+
+            .card-header {
+                height: 70px;
+
+                h3 {
+
+                    color: white;
+                    width: 150px;
+                    font-size: 30px;
+                    margin-left: 15px;
+                }
+
+                .social_icon {
+
+                    position: relative;
+                    right: -230px;
+                    top: -100px;
+                    align-items: center;
+
+                    span {
+                        font-size: 60px;
+                        margin-left: 10px;
+                        color: #FFC312;
+                        padding-right: 4px;
+
+
+                        &:hover {
+                            cursor: pointer;
+
+                            i {
+
+                                background-color: white;
+                                color: black;
+                                border-radius: 3px;
+
+                            }
+                        }
+
+                        i {
+
+                            background-color: #FFC312;
+                            color: black;
+                            border-radius: 3px;
+
+                        }
+                    }
+                }
+            }
+
+            .card-body {
+                height: 270px;
+
+                form {
+                    height: 160px;
+                    padding-top: 12px;
+
+                    .input-group-form-group {
+                        height: 60px;
+                        display: flex;
+                        justify-content: center;
+                        margin-bottom: 15px;
+
+                        .form-input {
+                            display: flex;
+                            height: 40px;
+                            margin-top: 10px;
+                            width: 350px;
+
+                            .input-group-prepend {
+
+
+                                align-items: center;
+
+                                margin-right: 3px;
+
+                                .input-group-text {
+
+                                    background-color: #FFC312;
+                                    color: black;
+                                    border: 0 !important;
+                                    height: 100%;
+                                    align-content: center;
+                                    display: block;
+                                    border-radius: 3px;
+
+
+                                }
+                            }
+
+                            .input-email {
+                                .form-control {
+                                    width: 310px;
+                                    border-radius: 3px;
+                                    height: 35px;
+
+                                    :focus {
+                                        outline: 0 0 0 0 !important;
+                                        box-shadow: 0 0 0 0 !important;
+                                    }
+                                }
+                            }
+
+                            .input-password {
+                                .form-control {
+                                    width: 310px;
+                                    border-radius: 3px;
+                                    height: 35px;
+
+                                    :focus {
+                                        outline: 0 0 0 0 !important;
+                                        box-shadow: 0 0 0 0 !important;
+                                    }
+                                }
+
+                                span {
+
+                                    position: relative;
+                                    right: -285px;
+                                    top: -28px;
+
+                                }
+                            }
+
+
+                        }
+
+                    }
+                }
+
+                .alert {
+                    color: red;
+                    height: 20px;
+                    width: 250px;
+                    margin-left: 25px;
+                }
+
+                .form-group {
+                    height: 45px;
+
+                    .login_btn {
+                        color: black;
+                        background-color: #FFC312;
+                        width: 100px;
+                        height: 40px;
+                        border-radius: 5px;
+                        float: right;
+                        margin-right: 25px;
+
+
+                        &:hover {
+                            color: black;
+                            background-color: white;
+                        }
+                    }
+                }
+            }
+
+
+
+            .card-footer {
+                margin-top: 10px;
+
+                .links {
+                    color: white;
+                    padding-left: 70px;
+
+                    Link {
+                        color: rgb(15, 15, 223);
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
