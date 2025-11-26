@@ -2,19 +2,19 @@ import React from "react";
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
 import './GetUserProfile.scss';
-import HomHeader from "../HomHeader";
+import HomHeader from "../HomeHeader";
 import { getUserInfo, handlePutUpdateUser } from '../../services/userServices';
-import * as action from '../../store/actions/actionType';
+import * as action from '../../store/actions/userAction';
+import { toast } from "react-toastify";
 
 class UserProfile extends React.Component {
 
     state = {
         id: '',
-        email: '',
         firstName: '',
         lastName: '',
         phonenumber: '',
-        role: '',
+
 
     }
 
@@ -82,8 +82,9 @@ class UserProfile extends React.Component {
             try {
                 let userData = await handlePutUpdateUser(user, tokenUser);
                 if (userData && userData.data.errCode === 0) {
-                    this.props.data(user);
-                    // this.props.history.push("/");
+                    this.props.updateUserSuccess(userData.data.userEdit);
+                    toast.success("Update Successful!")
+                    this.props.history.push("/");
                 }
                 else {
                     console.log(userData.data.errMessage)

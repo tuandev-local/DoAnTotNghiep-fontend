@@ -2,14 +2,17 @@ import React from "react";
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
 import './UploadDocuments.scss';
-import HomHeader from "../HomHeader";
+import HomeHeader from "../HomeHeader";
+import * as action from '../../store/actions/documentAction';
+
 
 
 class UploadDocuments extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedFile: null
+            selectedFile: null,
+
         }
         this.fileInput = React.createRef();
     }
@@ -21,20 +24,29 @@ class UploadDocuments extends React.Component {
 
     handleReadFile = (event) => {
         this.setState({
-            selectedFile: event.target.files[0].name
+            selectedFile: event.target.files[0],
+
         })
+
     }
 
     handleRemoveFile = () => {
         this.setState({
-            selectedFile: null
+            selectedFile: null,
+
         })
     }
+
+    handleOnClickUpload = (fileInput) => {
+        this.props.getFile(fileInput);
+        this.props.history.push("/auth/upload-document/form");
+    }
     render() {
+        console.log(this.state.selectedFile)
         let { selectedFile } = this.state;
         return (
             <React.Fragment>
-                <HomHeader />
+                <HomeHeader />
                 <div className="upload-container">
 
 
@@ -58,8 +70,8 @@ class UploadDocuments extends React.Component {
                             </div>
                             {selectedFile &&
                                 <div className="display-file">
-                                    <div className="show-file">{this.state.selectedFile} <span onClick={() => this.handleRemoveFile()}><i className="fa-solid fa-xmark"></i></span></div>
-                                    <button type="submit" className="btn-next">Next</button>
+                                    <div className="show-file">{this.state.selectedFile.name} <span onClick={() => this.handleRemoveFile()}><i className="fa-solid fa-xmark"></i></span></div>
+                                    <button type="submit" className="btn-next" onClick={() => this.handleOnClickUpload(selectedFile)}>Next</button>
                                 </div>
                             }
 
@@ -106,6 +118,7 @@ class UploadDocuments extends React.Component {
                         </div>
                     </div>
                 </div>
+
             </React.Fragment>
         )
     }
@@ -119,8 +132,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // userLoginSuccess: (userInfo, token) => dispatch(action.userLoginSuccess(userInfo, token)),
-        // userLoginFail: () => dispatch(action.userLoginFail()),
+        getFile: (file) => dispatch(action.getFile(file))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UploadDocuments));

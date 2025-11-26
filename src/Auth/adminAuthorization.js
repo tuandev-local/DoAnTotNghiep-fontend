@@ -1,8 +1,9 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { userAth } from "../services/userServices";
-class ProtectedRoute extends Component {
+import { adminAuth } from "../services/userServices";
+
+class ProtectedAdminRoute extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,16 +18,18 @@ class ProtectedRoute extends Component {
     checkToken = async () => {
         const { token } = this.props;
 
-        // Nếu không có token trong Redux → fail
         if (!token) {
             this.setState({ valid: false });
             return;
         }
 
         try {
-            const res = await userAth(token);
+            const res = await adminAuth(token);
             if (res && res.data.verify === true) {
-                this.setState({ valid: res.data.verify });
+                this.setState({ valid: true });
+            }
+            else {
+                this.setState({ valid: false });
             }
 
         } catch (error) {
@@ -49,7 +52,7 @@ class ProtectedRoute extends Component {
                     valid ? (
                         <Component {...props} />
                     ) : (
-                        <Redirect to="/login" />
+                        <Redirect to="/" />
                     )
                 }
             />
@@ -62,5 +65,5 @@ const mapStateToProps = (state) => ({
     token: state.user.token
 });
 
-export default connect(mapStateToProps)(ProtectedRoute);
+export default connect(mapStateToProps)(ProtectedAdminRoute);
 

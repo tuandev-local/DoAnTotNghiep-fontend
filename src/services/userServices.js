@@ -11,10 +11,15 @@ const loginUser = (emailInput, passwordInput) => {
 }
 
 const userAth = (tokenInput) => {
-    console.log('check token input', tokenInput);
     return axios.get('/api/auth', {
         headers: { Authorization: `Bearer ${tokenInput}` }
     });
+}
+
+const adminAuth = (tokenInput) => {
+    return axios.get('/api/admin', {
+        headers: { Authorization: `Bearer ${tokenInput}` }
+    })
 }
 
 const getAllCode = (typeInput) => {
@@ -35,11 +40,19 @@ const handlePutUpdateUser = (dataInput, tokenInput) => {
         headers: { Authorization: `Bearer ${tokenInput}` }
     })
 }
+
+const handleDeleteUser = (userId, tokenInput) => {
+    return axios.delete('/api/delete-a-user', { data: { id: userId }, headers: { Authorization: `Bearer ${tokenInput}` } })
+}
+
 export {
     sigUpUser,
     loginUser,
     userAth,
+    adminAuth,
     getAllCode,
     getUserInfo,
-    handlePutUpdateUser
+    handlePutUpdateUser,
+    handleDeleteUser
+
 }

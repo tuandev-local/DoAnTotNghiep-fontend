@@ -64,18 +64,19 @@ class Login extends React.Component {
             }
             //found email && password 
             if (response && response.data.errCode === 0) {
-                //save token in local storage
-                // localStorage.setItem('access_token', response.data.token);
                 //store user data in redux
                 this.props.userLoginSuccess(response.data.user, response.data.token);
+                let role = this.props.userInfo.roleId;
+                if (role === "R1") {
+                    this.props.history.push("/system-administrator-users");
+                }
+                else {
+                    //push to home page
+                    this.props.history.push("/");
+                }
 
-
-                //push to home page
-                this.props.history.push("/");
 
             }
-
-            console.log('check res: ', response);
         } catch (error) {
             if (error.response) {
                 if (error.response.data) {
@@ -161,7 +162,10 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {};
+    return {
+        userInfo: state.user.userInfo,
+        token: state.user.token
+    };
 }
 
 const mapDispatchToProps = (dispatch) => {

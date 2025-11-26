@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { sigUpUser, getAllCode } from '../services/userServices';
 import { withRouter } from "react-router";
+import { toast } from "react-toastify";
 
 class Register extends React.Component {
     constructor(props) {
@@ -88,7 +89,7 @@ class Register extends React.Component {
                     })
                 }
                 else {
-
+                    toast.success("Register Successful!")
                     this.props.history.push("/login");
                 }
 

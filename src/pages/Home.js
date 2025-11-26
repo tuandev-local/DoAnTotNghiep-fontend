@@ -2,7 +2,8 @@ import React from "react";
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
 
-import HomHeader from "./HomHeader";
+import HomeHeader from "./HomeHeader";
+import HomeFooter from "./HomeFooter";
 import DocumentSection from "./HomeSection/DocumentSection";
 
 
@@ -12,8 +13,10 @@ class Home extends React.Component {
 
         return (
             <React.Fragment>
-                <HomHeader />
+                <HomeHeader />
                 <DocumentSection />
+
+                <HomeFooter />
             </React.Fragment>
         )
     }

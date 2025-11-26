@@ -1,0 +1,40 @@
+.admin-container {
+    padding: 5px;
+    background: #292929;
+
+    .admin-header {
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+
+        .left-nav {
+
+            display: flex;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .left-nav a {
+            color: white;
+            text-decoration: none;
+
+            &:hover {
+                opacity: 0.7;
+            }
+
+        }
+
+        .right-nav {
+            span {
+                color: white;
+                cursor: pointer;
+            }
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    }
+}

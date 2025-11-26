@@ -1,7 +1,7 @@
 .section-all-contain {
 
     background-color: rgb(247, 245, 242);
-    height: 300px;
+    height: 30rem;
 
     .section-all-content {
 
@@ -10,7 +10,7 @@
         padding-top: 30px;
 
         .section-all-title {
-
+            text-align: center;
             margin-top: 10px;
             margin-bottom: 15px;
             font-family: ui-sans-serif;
@@ -21,43 +21,50 @@
         }
 
         .section-all-recommend-doc {
+            padding: 0 30px;
 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0px 8px;
+            .section-all-recommend-doc-wrap {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0px 30px;
 
-            .section-doc {
+                .section-doc {
 
-                height: 200px;
-                width: 200px;
+                    height: 100%;
+                    width: 80%;
+                    margin: 0 auto;
 
-                .doc-show {
+                    .list-group-item {
+                        height: 4rem;
+                        font-size: 15px;
+                        text-align: left;
+                        font-weight: 400;
 
-                    height: 120px;
-                    margin-bottom: 15px;
-                    background-image: url('../../assets/Home/document.webp');
-                    background-repeat: no-repeat;
-                    background-size: contain;
-                    background-position: center;
-                    border-radius: 3px;
-                    border: 3px solid transparent;
-                    box-shadow: rgb(230, 226, 220) 0px 0px 0px 3px inset;
-
-                    &:hover {
-                        cursor: pointer;
+                        &:hover {
+                            cursor: pointer;
+                            color: rgb(46, 46, 248)
+                        }
                     }
                 }
+            }
 
-                .doc-description {
 
-                    font-size: 15px;
-                    text-align: left;
-                    font-weight: 400;
+        }
 
-                    &:hover {
+        .section-doc-pagination {
+
+            margin-top: 15px;
+
+            nav {
+                justify-content: center;
+                display: flex;
+
+                .pagination {
+                    margin: 0 auto;
+
+                    .page-item {
                         cursor: pointer;
-                        color: rgb(46, 46, 248)
                     }
                 }
             }

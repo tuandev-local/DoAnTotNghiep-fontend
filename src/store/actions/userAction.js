@@ -1,4 +1,5 @@
 
+
 export const updateUserSuccess = (userInfo, token) => ({
     type: 'UPDATE_USER_SUCCESS',
     userInfo: userInfo,
@@ -18,3 +19,4 @@ export const userLoginSuccess = (userInfo, token) => ({
     userInfo: userInfo,
     token: token,
 })
+

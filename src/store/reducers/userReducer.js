@@ -2,7 +2,8 @@
 const initialState = {
     isLoggedIn: false,
     userInfo: null,
-    token: null
+    token: null,
+
 }
 
 const appReducer = (state = initialState, action) => {

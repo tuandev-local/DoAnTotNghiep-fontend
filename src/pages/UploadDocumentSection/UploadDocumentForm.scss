@@ -1,0 +1,98 @@
+.upload-form-box {
+
+    height: auto;
+    background-color: rgb(230, 239, 255);
+
+    .upload-form-contained {
+
+        margin: 0 auto;
+        width: 70%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .form-wrap {
+
+            height: 90%;
+            width: 60%;
+            margin: 0 auto;
+
+            .form-head {
+
+                text-align: center;
+                font-size: larger;
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+
+            .form-info {
+
+                height: 85%;
+                background-color: white;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .file-contain {
+
+                    display: flex;
+                    align-items: center;
+                    height: 50px;
+                    justify-content: center;
+                    gap: 15px;
+                    border-bottom: 1px solid #c3b7b7;
+                }
+
+                .upload-title {
+
+                    height: 100px;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0 20px;
+
+                    .title-input {
+                        height: 40px;
+                    }
+                }
+
+                .upload-description {
+
+                    height: 100px;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0 20px;
+
+                    .description-input {
+                        height: 60px;
+                    }
+                }
+
+                .faculty-select {
+
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0 20px;
+                    height: 70px;
+                }
+
+                .major-select {
+
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0 20px;
+                    height: 70px;
+                }
+
+                .btn-upload {
+                    width: 70%;
+                    margin: 0 auto;
+                    background-color: blue;
+                    color: white;
+                    border-radius: 3px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
