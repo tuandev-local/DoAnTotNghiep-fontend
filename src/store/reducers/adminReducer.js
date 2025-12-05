@@ -2,7 +2,7 @@
 const initialState = {
     arrUser: [],
     arrRole: [],
-    pendingDocument: []
+    manageDocuments: []
 
 }
 
@@ -38,14 +38,14 @@ const appReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                pendingDocument: action.pendingDocument
+                manageDocuments: action.manageDocuments
 
             }
 
         case 'GET_PENDING_DOCUMENT_FAIL':
             return {
                 ...state,
-                pendingDocument: []
+                manageDocuments: []
             }
         default:
             return state;

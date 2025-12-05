@@ -154,7 +154,7 @@
 
     .display-document-file {
         background-color: rgb(230, 239, 255);
-        height: 60rem;
+        height: 100%;
 
         .display-content {
 
@@ -222,8 +222,21 @@
                     }
 
                     .show-related {
-                        border: 1px solid red;
                         height: 80%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        gap: 15px;
+                        padding: 0 15px;
+
+                        .related-document-section {
+                            border-bottom: 1px solid rgb(204, 200, 200);
+
+                            &:hover {
+                                cursor: pointer;
+                                color: rgb(0, 97, 254);
+                            }
+                        }
                     }
                 }
             }

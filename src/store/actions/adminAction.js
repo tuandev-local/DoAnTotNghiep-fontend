@@ -158,10 +158,10 @@ export const updateUserActionSuccess = () => ({
 })
 
 //get pending document
-export const getPendingDocument = (token) => {
+export const getPendingDocument = (status, token) => {
     return async (dispatch, getState) => {
         try {
-            let response = await handleGetPendingDocument(token);
+            let response = await handleGetPendingDocument(status, token);
             if (response && response.data && response.data.errCode === 0) {
                 dispatch(getPendingDocumentSuccess(response.data.data));
             }
@@ -183,17 +183,17 @@ export const getPendingDocumentFail = () => ({
 
 export const getPendingDocumentSuccess = (data) => ({
     type: 'GET_PENDING_DOCUMENT_SUCCESS',
-    pendingDocument: data,
+    manageDocuments: data,
 })
 
 //reject document
-export const rejectDocument = (id, token) => {
+export const rejectDocument = (id, token, status) => {
     return async (dispatch, getState) => {
         try {
             let response = await handlePutRejectDocument(id, token);
             if (response && response.data && response.data.errCode === 0) {
                 dispatch(rejectDocumentSuccess());
-                dispatch(getPendingDocument(token));
+                dispatch(getPendingDocument(status, token));
             }
             else {
                 dispatch(rejectDocumentFail());
@@ -216,13 +216,13 @@ export const rejectDocumentSuccess = () => ({
 })
 
 //approve document
-export const approveDocument = (id, token) => {
+export const approveDocument = (id, token, status) => {
     return async (dispatch, getState) => {
         try {
             let response = await handlePutApproveDocument(id, token);
             if (response && response.data && response.data.errCode === 0) {
                 dispatch(approveDocumentSuccess());
-                dispatch(getPendingDocument(token));
+                dispatch(getPendingDocument(status, token));
             }
             else {
                 dispatch(approveDocumentFail());

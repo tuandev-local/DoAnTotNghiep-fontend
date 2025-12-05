@@ -23,7 +23,10 @@
             &:hover {
                 opacity: 0.7;
             }
+        }
 
+        .left-nav a.active {
+            border-bottom: 1px solid rgb(150, 148, 148);
         }
 
         .right-nav {

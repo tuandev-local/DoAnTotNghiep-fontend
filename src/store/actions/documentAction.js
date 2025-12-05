@@ -1,5 +1,11 @@
 import { toast } from "react-toastify";
-import { handleGetDocumentsPagination, getDetailDocumentInfo, handleAddFavourDocument, handleGetFavourDocument, handleGetFaculty, handleGetMajor, handleGetDocumentByFaculty, handleGetDocumentByMajor } from "../../services/documentServices";
+import {
+    handleGetDocumentsPagination,
+    getDetailDocumentInfo, handleAddFavourDocument, handleGetFavourDocument, handleGetFaculty,
+    handleGetMajor, handleGetDocumentByFaculty, handleGetDocumentByMajor, handleGetDocumentByKeyword,
+    handleGetSuggestDocument
+}
+    from "../../services/documentServices";
 
 export const uploadDocumentFail = () => ({
     type: 'UPLOAD_DOCUMENT_FAIL'
@@ -19,7 +25,7 @@ export const getFile = (fileInput) => ({
 export const getDocuments = (pageInput, tokenInput) => {
     return async (dispatch, getState) => {
         try {
-            let limitInput = 4;
+            let limitInput = 5;
             let response = await handleGetDocumentsPagination(pageInput, limitInput, tokenInput);
 
             if (response && response.data && response.data.errCode === 0) {
@@ -52,7 +58,7 @@ export const getDetailDocument = (idInput, tokenInput) => {
     return async (dispatch, getState) => {
         try {
             let response = await getDetailDocumentInfo(idInput, tokenInput);
-            console.log('check response: ', response);
+            console.log('check res: ', response);
             if (response && response.data && response.data.errCode === 0) {
                 dispatch(getDetailDocumentSuccess(response.data));
             }
@@ -82,12 +88,12 @@ export const addFavourDocumentRedux = (data, tokenInput) => {
     return async (dispatch, getState) => {
         try {
             let response = await handleAddFavourDocument(data, tokenInput);
-            console.log('check response: ', response);
             if (response && response.data && response.data.errCode === 0) {
                 toast.success(response.data.errMessage);
                 dispatch(addFavourDocumentSuccess());
             }
             else {
+                toast.error(response.data.errMessage);
                 dispatch(addFavourDocumentFail());
             }
         } catch (error) {
@@ -248,4 +254,63 @@ export const fillterMajorFail = () => ({
 export const fillterMajorSuccess = (data) => ({
     type: 'FILLTER_MAJOR_SUCCESS',
     majorDocument: data
+})
+
+export const searchByKeywordRedux = (keyword, token) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await handleGetDocumentByKeyword(keyword, token);
+            if (response && response.data && response.data.errCode === 0) {
+                dispatch(searchByKeywordSuccess(response.data.document));
+            }
+            else {
+                toast.error(response.data.errMessage);
+                dispatch(searchByKeywordFail());
+            }
+        } catch (error) {
+            console.log(error);
+            dispatch(searchByKeywordFail());
+        }
+    }
+
+
+}
+
+export const searchByKeywordFail = () => ({
+    type: 'SEARCH_BY_KEYWORD_FAIL'
+})
+
+export const searchByKeywordSuccess = (data) => ({
+    type: 'SEARCH_BY_KEYWORD_SUCCESS',
+    searchDocument: data
+})
+
+
+export const getSuggestDocument = (idInput, tokenInput) => {
+    return async (dispatch, getState) => {
+        try {
+            let response = await handleGetSuggestDocument(idInput, tokenInput);
+            if (response && response.data && response.data.errCode === 0) {
+                dispatch(getSuggestDocumentSuccess(response.data.results));
+            }
+            else {
+                dispatch(getSuggestDocumentFail());
+            }
+        } catch (error) {
+            console.log(error);
+            dispatch(getSuggestDocumentFail());
+        }
+    }
+
+
+}
+
+export const getSuggestDocumentFail = () => ({
+    type: 'GET_SUGGEST_DOCUMENT_FAIL'
+})
+
+export const getSuggestDocumentSuccess = (data) => ({
+    type: 'GET_SUGGEST_DOCUMENT_SUCCESS',
+    suggestDocument: data,
+
 })

@@ -19,7 +19,9 @@ class UploadDocumentForm extends React.Component {
             title: '',
             description: '',
             facultyId: '',
-            majorId: ''
+            majorId: '',
+            listTag: [],
+            currentTag: ''
         }
 
     }
@@ -76,7 +78,24 @@ class UploadDocumentForm extends React.Component {
         })
     }
 
+    handleKeyDownTag = (event) => {
+        if (event.key === 'Enter') {
+
+            let tag = this.state.currentTag.trim();
+            if (!tag) return;
+            if (this.state.listTag.includes(tag)) {
+                this.setState({ currentTag: "" });
+                return;
+            }
+            this.setState({
+                listTag: [...this.state.listTag, tag],
+                currentTag: ''
+            })
+        }
+    }
+
     handleUploadDocument = async () => {
+        console.log('check state: ', this.state);
         let isValid = this.checkInput();
         let tokenRedux = this.props.token;
         const formData = new FormData();
@@ -86,6 +105,10 @@ class UploadDocumentForm extends React.Component {
         formData.append('facultyId', this.state.facultyId);
         formData.append('majorId', this.state.majorId);
         formData.append('userId', this.state.userId);
+        for (let i = 0; i < this.state.listTag.length; i++) {
+            formData.append('listTag[]', this.state.listTag[i]);
+        }
+
 
         if (isValid === true) {
             try {
@@ -107,8 +130,8 @@ class UploadDocumentForm extends React.Component {
     }
 
     render() {
-        console.log('check state: ', this.state);
-        let { selectedFile, title, description, facultyId, majorId, facultyArr, majorArr } = this.state;
+
+        let { selectedFile, title, description, facultyId, majorId, facultyArr, majorArr, currentTag, listTag } = this.state;
         return (
             <React.Fragment>
                 <HomeHeader />
@@ -131,7 +154,7 @@ class UploadDocumentForm extends React.Component {
                                     <input type="text" placeholder="Enter description" className="description-input" value={description} onChange={(event) => this.handleOnchangeInput(event, 'description')} />
                                 </div>
                                 <div className="faculty-select">
-                                    <label>Chọn Khoa:</label>
+                                    <label>Choose Faculty:</label>
                                     <select value={facultyId} onChange={(event) => this.handleOnchangeInput(event, 'facultyId')}>
                                         {facultyArr && facultyArr.length > 0 &&
                                             facultyArr.map((item, index) => {
@@ -144,7 +167,7 @@ class UploadDocumentForm extends React.Component {
                                     </select>
                                 </div>
                                 <div className="major-select">
-                                    <label>Chọn chuyên ngành:</label>
+                                    <label>Choose Major:</label>
                                     <select value={majorId} onChange={(event) => this.handleOnchangeInput(event, 'majorId')}>
                                         {majorArr && majorArr.length > 0 &&
                                             majorArr.map((item, index) => {
@@ -156,6 +179,16 @@ class UploadDocumentForm extends React.Component {
                                         }
 
                                     </select>
+                                </div>
+                                <div className="upload-tag">
+                                    <input type="text" placeholder="Enter tag" className="tag-input" value={currentTag} onChange={(event) => this.handleOnchangeInput(event, 'currentTag')} onKeyDown={(event) => this.handleKeyDownTag(event)} />
+                                    <div className="show-list-tag">
+                                        {listTag && listTag.length > 0 && listTag.map((item, index) => {
+                                            return (
+                                                <div className="tag-item" key={index}>{item}</div>
+                                            )
+                                        })}
+                                    </div>
                                 </div>
                                 <button type="submit" className="btn-upload" onClick={() => this.handleUploadDocument()}>Upload</button>
                             </div>

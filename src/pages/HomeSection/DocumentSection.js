@@ -45,7 +45,9 @@ class DocumentSection extends React.Component {
     }
 
     handleShowDetailDocument = (document) => {
+
         this.props.getDetailDocument(document.id, this.props.token);
+        this.props.getSuggestDocument(document.id, this.props.token);
         this.props.history.push(`/auth/get-detail-document`);
     }
     render() {
@@ -57,7 +59,6 @@ class DocumentSection extends React.Component {
         for (let i = 1; i <= totalPage; i++) {
             pageNumbers.push(i);
         }
-        // console.log('check page: ', pageNumbers);
         return (
             <React.Fragment>
                 <div className="section-all-contain">
@@ -114,6 +115,7 @@ class DocumentSection extends React.Component {
 const mapStateToProps = (state) => {
     return {
         token: state.user.token,
+        userInfo: state.user.userInfo,
         documentRedux: state.document.documents,
         totalPageRedux: state.document.totalPage,
         currentPageRedux: state.document.currentPage,
@@ -124,7 +126,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getDocumentsPagination: (page, limit, token) => dispatch(action.getDocuments(page, limit, token)),
-        getDetailDocument: (document, token) => dispatch(action.getDetailDocument(document, token))
+        getDetailDocument: (document, token) => dispatch(action.getDetailDocument(document, token)),
+        getSuggestDocument: (documentId, token) => dispatch(action.getSuggestDocument(documentId, token))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DocumentSection));

@@ -17,7 +17,6 @@ class ProtectedRoute extends Component {
     checkToken = async () => {
         const { token } = this.props;
 
-        // Nếu không có token trong Redux → fail
         if (!token) {
             this.setState({ valid: false });
             return;

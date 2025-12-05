@@ -12,10 +12,11 @@ class FindDocument extends React.Component {
         super(props);
         this.state = {
             showModal: false,
-            documents: []
-
+            documents: [],
+            keyword: ''
         }
     }
+
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.fillterDocumentByFaculty !== this.props.fillterDocumentByFaculty) {
@@ -27,6 +28,12 @@ class FindDocument extends React.Component {
         if (prevProps.fillterDocumentByMajor !== this.props.fillterDocumentByMajor) {
             this.setState({
                 documents: this.props.fillterDocumentByMajor
+            })
+        }
+
+        if (prevProps.searchDocument !== this.props.searchDocument) {
+            this.setState({
+                documents: this.props.searchDocument
             })
         }
     }
@@ -46,9 +53,19 @@ class FindDocument extends React.Component {
         this.props.getDetailDocument(document.id, this.props.token);
         this.props.history.push(`/auth/get-detail-document`);
     }
+
+    handleOnchangeKeyword = (event) => {
+        this.setState({
+            keyword: event.target.value
+        })
+    }
+
+    handleSearchDocument = (keyword) => {
+        this.props.searchByKeywordRedux(keyword, this.props.token);
+
+    }
     render() {
-        console.log('check state: ', this.state.documents);
-        let { documents } = this.state;
+        let { documents, keyword } = this.state;
         return (
             <React.Fragment>
                 <HomeHeader />
@@ -67,9 +84,9 @@ class FindDocument extends React.Component {
                                     </span>
                                 </div>
                                 <div className="form-outline" data-mdb-input-init>
-                                    <input type="search" className="form-control" placeholder="What are you studying today" />
+                                    <input type="search" className="form-control" placeholder="What are you studying today" value={keyword} onChange={(event) => this.handleOnchangeKeyword(event)} />
                                 </div>
-                                <button type="button" className="btn btn-primary" data-mdb-ripple-init>
+                                <button type="button" className="btn btn-primary" data-mdb-ripple-init onClick={() => this.handleSearchDocument(keyword)}>
                                     <i className="fas fa-search"></i>
                                 </button>
                             </div>
@@ -97,14 +114,15 @@ const mapStateToProps = (state) => {
     return {
         token: state.user.token,
         fillterDocumentByFaculty: state.document.facultyDocument,
-        fillterDocumentByMajor: state.document.majorDocument
+        fillterDocumentByMajor: state.document.majorDocument,
+        searchDocument: state.document.searchDocument
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
-        getDetailDocument: (document, token) => dispatch(action.getDetailDocument(document, token))
+        getDetailDocument: (document, token) => dispatch(action.getDetailDocument(document, token)),
+        searchByKeywordRedux: (keyword, token) => dispatch(action.searchByKeywordRedux(keyword, token))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FindDocument));

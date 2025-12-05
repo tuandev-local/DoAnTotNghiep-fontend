@@ -1,20 +1,20 @@
 .upload-form-box {
 
-    height: auto;
+    height: 100%;
     background-color: rgb(230, 239, 255);
 
     .upload-form-contained {
 
         margin: 0 auto;
         width: 70%;
-        height: 100vh;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
 
         .form-wrap {
 
-            height: 90%;
+            height: 100%;
             width: 60%;
             margin: 0 auto;
 
@@ -28,11 +28,12 @@
 
             .form-info {
 
-                height: 85%;
+                height: 100vh;
                 background-color: white;
                 display: flex;
                 flex-direction: column;
                 gap: 20px;
+                margin-bottom: 20px;
 
                 .file-contain {
 
@@ -54,6 +55,8 @@
                     .title-input {
                         height: 40px;
                     }
+
+
                 }
 
                 .upload-description {
@@ -82,6 +85,39 @@
                     flex-direction: column;
                     padding: 0 20px;
                     height: 70px;
+                }
+
+                .upload-tag {
+                    height: 100px;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 0 20px;
+                    gap: 10px;
+
+                    .tag-input {
+                        height: 40px;
+                    }
+
+                    .show-list-tag {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        padding: 6px;
+                        min-height: 44px;
+                        border: 1px solid #ccc;
+                        border-radius: 8px;
+                        cursor: text;
+
+                        .tag-item {
+                            background: #3498db;
+                            color: white;
+                            padding: 5px 10px;
+                            border-radius: 6px;
+                            margin: 4px;
+                            display: flex;
+                            align-items: center;
+                        }
+                    }
                 }
 
                 .btn-upload {

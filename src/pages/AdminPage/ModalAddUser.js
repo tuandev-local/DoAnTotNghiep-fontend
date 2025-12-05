@@ -95,7 +95,7 @@ class ModalAddUser extends React.Component {
             <React.Fragment>
                 <div>
                     <Button color="info" onClick={() => this.handleShowModal()}>
-                        Click Me
+                        Add a new user
                     </Button>
                     <Modal isOpen={this.state.showModal} toggle={() => this.handleShowModal()} >
                         <ModalHeader toggle={() => this.handleShowModal()}>Add a new User</ModalHeader>

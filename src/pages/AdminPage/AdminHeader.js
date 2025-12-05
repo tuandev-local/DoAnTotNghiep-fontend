@@ -14,6 +14,7 @@ class AdminPage extends React.Component {
         this.props.processLogout();
         persistor.purge();
         this.props.history.push("/login");
+
     }
     render() {
 

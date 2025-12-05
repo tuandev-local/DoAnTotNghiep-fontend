@@ -12,7 +12,7 @@ class DetailDocument extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            documentDetail: [],
+            id: '',
             title: '',
             description: '',
             faculty: '',
@@ -21,7 +21,9 @@ class DetailDocument extends React.Component {
             userLastName: '',
             fileUrl: '',
             numPages: null,
-            pageNumber: 1
+            pageNumber: 1,
+            tagName: [],
+            suggestDocuments: []
         }
     }
     componentDidMount() {
@@ -31,14 +33,21 @@ class DetailDocument extends React.Component {
         if (prevProps.documentInfo !== this.props.documentInfo) {
             let detailDocument = this.props.documentInfo.data;
             this.setState({
-                documentDetail: detailDocument,
+                id: detailDocument.id,
                 title: detailDocument.title,
                 description: detailDocument.description,
                 faculty: detailDocument.facultyId,
                 major: detailDocument.majorId,
                 userFirstName: detailDocument.User.firstName,
                 userLastName: detailDocument.User.lastName,
-                fileUrl: this.props.documentInfo.fileUrl
+                fileUrl: this.props.documentInfo.fileUrl,
+                tagName: detailDocument.Tags
+            })
+        }
+
+        if (prevProps.suggestDocumentRedux !== this.props.suggestDocumentRedux) {
+            this.setState({
+                suggestDocuments: this.props.suggestDocumentRedux
             })
         }
     }
@@ -47,23 +56,28 @@ class DetailDocument extends React.Component {
         this.setState({ numPages });
     };
 
-    handleOnclickDownloadDocument = async (document) => {
-        let documentId = document.id;
+    handleOnclickDownloadDocument = async (documentId) => {
         await getDownloadDocumentById(documentId);
         window.open(`http://localhost:5000/api/download-document-by-id?id=${documentId}}`, "_blank");
     }
 
-    handleOnclickFavourDocument = (document) => {
-        console.log('check document favour: ', document);
+    handleOnclickFavourDocument = (documentId) => {
         let token = this.props.token;
         let userId = this.props.userInfo.id;
-        let documentId = document.id;
         let data = { userId, documentId };
         this.props.addFavourDocumentRedux(data, token);
     }
+
+    handleShowDetailDocument = (document) => {
+
+        this.props.getDetailDocument(document.id, this.props.token);
+        this.props.getSuggestDocument(document.id, this.props.token);
+
+    }
+
     render() {
-        console.log('check state: ', this.state);
-        let { documentDetail, title, description, faculty, major, userFirstName, userLastName, fileUrl, numPages, pageNumber } = this.state;
+
+        let { id, title, description, faculty, major, userFirstName, userLastName, fileUrl, numPages, pageNumber, tagName, suggestDocuments } = this.state;
         return (
             <div className="detail-document-container">
                 <HomeHeader />
@@ -87,6 +101,12 @@ class DetailDocument extends React.Component {
                                             <div className="show-falculty-major">
                                                 <div className="display-falculty">{faculty ? faculty : 'no faculty'}</div>
                                                 <div className="display-major">{major ? major : 'no major'}</div>
+                                                {tagName && tagName.length > 0 && tagName.map((item, index) => {
+                                                    return (
+                                                        <div key={index} style={{ color: 'blue' }}>{item.name}</div>
+                                                    )
+                                                })}
+
                                             </div>
 
                                             <div className="show-description-document">
@@ -97,9 +117,9 @@ class DetailDocument extends React.Component {
                                         <div className="title-right">
                                             <div className="show-user-buton-document">
                                                 <div className="show-button">
-                                                    <button className="btn-download" onClick={() => this.handleOnclickDownloadDocument(documentDetail)}>DownLoad</button>
-                                                    <button className="btn-favour" onClick={() => this.handleOnclickFavourDocument(documentDetail)}><i className="fa-regular fa-bookmark"></i></button>
-                                                    <button className="btn-report"><i className="fa-solid fa-flag"></i></button>
+                                                    <button className="btn-download" onClick={() => this.handleOnclickDownloadDocument(id)}>DownLoad</button>
+                                                    <button className="btn-favour" onClick={() => this.handleOnclickFavourDocument(id)}><i className="fa-regular fa-bookmark"></i></button>
+                                                    {/* <button className="btn-report"><i className="fa-solid fa-flag"></i></button> */}
                                                 </div>
 
                                                 <div className="show-user">Author: {userFirstName ? userFirstName : 'no'}-{userLastName ? userLastName : 'user'}</div>
@@ -136,7 +156,13 @@ class DetailDocument extends React.Component {
                                 <div className="content-wrap">
                                     <div className="related-title">Related Document</div>
                                     <div className="show-related">
-                                        document show here
+                                        {suggestDocuments && suggestDocuments.length > 0 && suggestDocuments.map((item, index) => {
+                                            return (
+                                                <div className="related-document-section" key={index} onClick={() => this.handleShowDetailDocument(item.Document)}>
+                                                    <i className="fa-solid fa-file-lines"></i> {item.Document.title}
+                                                </div>
+                                            )
+                                        })}
                                     </div>
                                 </div>
 
@@ -157,13 +183,15 @@ const mapStateToProps = (state) => {
         token: state.user.token,
         userInfo: state.user.userInfo,
         documentInfo: state.document.documentInfo,
-
+        suggestDocumentRedux: state.document.suggestDocument
     };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addFavourDocumentRedux: (data, token) => dispatch(action.addFavourDocumentRedux(data, token))
+        addFavourDocumentRedux: (data, token) => dispatch(action.addFavourDocumentRedux(data, token)),
+        getDetailDocument: (document, token) => dispatch(action.getDetailDocument(document, token)),
+        getSuggestDocument: (documentId, token) => dispatch(action.getSuggestDocument(documentId, token))
     };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DetailDocument));

@@ -9,7 +9,9 @@ const initialState = {
     faculty: [],
     major: [],
     facultyDocument: [],
-    majorDocument: []
+    majorDocument: [],
+    searchDocument: [],
+    suggestDocument: []
 }
 
 const appReducer = (state = initialState, action) => {
@@ -124,6 +126,30 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 majorDocument: []
+            }
+        case 'SEARCH_BY_KEYWORD_SUCCESS':
+
+            return {
+                ...state,
+                searchDocument: action.searchDocument,
+            }
+
+        case 'SEARCH_BY_KEYWORD_FAIL':
+            return {
+                ...state,
+                searchDocument: []
+            }
+        case 'GET_SUGGEST_DOCUMENT_SUCCESS':
+
+            return {
+                ...state,
+                suggestDocument: action.suggestDocument,
+            }
+
+        case 'GET_SUGGEST_DOCUMENT_FAIL':
+            return {
+                ...state,
+                suggestDocument: []
             }
         default:
             return state;

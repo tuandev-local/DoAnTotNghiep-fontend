@@ -43,8 +43,8 @@ const handleGetFavourDocument = (userId, tokenInput) => {
     })
 }
 
-const handleGetPendingDocument = (tokenInput) => {
-    return axios.get('/api/get-pending-document', {
+const handleGetPendingDocument = (statusInput, tokenInput) => {
+    return axios.get(`/api/get-manage-document?status=${statusInput}`, {
         headers: { Authorization: `Bearer ${tokenInput}` }
     })
 }
@@ -73,6 +73,18 @@ const handleGetDocumentByMajor = (majorId, tokenInput) => {
     })
 }
 
+const handleGetDocumentByKeyword = (keywordInput, tokenInput) => {
+    return axios.get(`/api/search-document-by-keyword?keyword=${keywordInput}`, {
+        headers: { Authorization: `Bearer ${tokenInput}` }
+    })
+}
+
+const handleGetSuggestDocument = (documentId, tokenInput) => {
+    return axios.get(`/api/suggest-document?id=${documentId}`, {
+        headers: { Authorization: `Bearer ${tokenInput}` }
+    })
+}
+
 export {
     handleUploadTheDocument,
     handleGetFaculty,
@@ -86,5 +98,7 @@ export {
     handlePutRejectDocument,
     handlePutApproveDocument,
     handleGetDocumentByFaculty,
-    handleGetDocumentByMajor
+    handleGetDocumentByMajor,
+    handleGetDocumentByKeyword,
+    handleGetSuggestDocument
 }
